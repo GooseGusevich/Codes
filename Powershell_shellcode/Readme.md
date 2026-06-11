@@ -1,11 +1,11 @@
 ```bash
-wget https://raw.githubusercontent.com/GooseGusevich/Code_WEB_Obsidian/refs/heads/main/Powershell_shellcode/shell.py
+wget https://raw.githubusercontent.com/GooseGusevich/Codes/refs/heads/main/Powershell_shellcode/shell.py
 ```
 ```bash
-wget https://raw.githubusercontent.com/GooseGusevich/Code_WEB_Obsidian/refs/heads/main/Powershell_shellcode/met.txt
+wget https://raw.githubusercontent.com/GooseGusevich/Codes/refs/heads/main/Powershell_shellcode/met.txt
 ```
 ```bash
-wget https://raw.githubusercontent.com/GooseGusevich/Code_WEB_Obsidian/refs/heads/main/Powershell_shellcode/amsi.txt
+wget https://raw.githubusercontent.com/GooseGusevich/Codes/refs/heads/main/Powershell_shellcode/amsi.txt
 ```
 ## Example
 ```bash
@@ -20,3 +20,4 @@ AMSI bypass via ReflectionFromAssembly with obfuscation.
 ```http
 https://amsi.fail/
 ```
+
